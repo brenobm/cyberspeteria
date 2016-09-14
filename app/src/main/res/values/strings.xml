@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Cyber Speteria</string>
+    <string name="app_site">http://www.cyberspeteria.com</string>
+
+    <string name="menu_produtos">Produtos</string>
+    <string name="menu_avaliacao">Avaliação</string>
+    <string name="menu_pedidos">Finalizar Pedido</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
