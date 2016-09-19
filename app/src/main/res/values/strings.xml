@@ -10,4 +10,17 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="app_description">A CyberSpeteria é uma empresa que inova no conceito digital para poder surpreender os clientes com uma nova experiência.</string>
+    <string name="app_about">Este é um projeto para a disciplina de Empreendedorismo formado pela equipe:\n
+    \t\u25BAFranciele Sabino\n
+    \t\u25BAThalis Freitas\n
+    \t\u25BAFernanda Dias\n
+    \t\u25BALúcia Teodoro\n
+    \t\u25BAEdilaine Santos\n
+    \t\u25BAJéssica Dias\n
+    \t\u25BAJoão Mendes</string>
+    <string name="title_activity_produtos">ProdutosActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
