@@ -162,8 +162,8 @@ public class ProdutosFragment extends Fragment {
 
         montadosAdapter = new ArrayAdapter<String>(
                 getActivity(),
-                R.layout.fragment_produtos,
-                R.id.list_montados,
+                R.layout.produto_montado,
+                R.id.montado,
                 listaMontagem);
 
         montadosView.setAdapter(montadosAdapter);
@@ -220,23 +220,12 @@ public class ProdutosFragment extends Fragment {
                 }
 
                 if (!espeto.isEmpty()) {
-                    ProdutosFragment.this.listaMontagem.add(espeto);
-                    //ProdutosFragment.this.atualiza();
+                    montadosAdapter.add(espeto);
                 }
             }
         });
 
         return v;
-    }
-
-    public void atualiza() {
-        montadosAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                R.layout.fragment_produtos,
-                R.id.list_montados,
-                listaMontagem);
-
-        montadosView.setAdapter(montadosAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
