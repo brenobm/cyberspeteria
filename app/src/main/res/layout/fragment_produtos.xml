@@ -36,6 +36,42 @@
             android:layout_height="200dp"
             android:layout_marginTop="5dip" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dip"
+            android:text="Monte seu espeto" />
+
+        <ListView
+            android:id="@+id/list_monte_seu_espeto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#DDDDDD"
+            android:layout_marginTop="5dip" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#DDDDDD">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/btn_adicionar"
+                android:text="Adicionar"/>
+
+            <ListView
+                android:id="@+id/list_montados"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#DDDDDD"
+                android:layout_alignTop="@+id/btn_adicionar"
+                android:layout_marginTop="5dip" />
+        </RelativeLayout>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

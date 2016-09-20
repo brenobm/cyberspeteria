@@ -4,24 +4,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
+ * Use the {@link AvaliacaoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class AvaliacaoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +34,7 @@ public class MainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MainFragment() {
+    public AvaliacaoFragment() {
         // Required empty public constructor
     }
 
@@ -43,11 +44,11 @@ public class MainFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MainFragment.
+     * @return A new instance of fragment AvaliacaoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
+    public static AvaliacaoFragment newInstance(String param1, String param2) {
+        AvaliacaoFragment fragment = new AvaliacaoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,7 +69,39 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_avaliacao, container, false);
+
+        Button btnCancelar = (Button)v.findViewById(R.id.botao_cancelar2);
+
+        btnCancelar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, new MainFragment());
+                ft.commit();
+
+                if (((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+                }
+            }
+        });
+
+        Button btnAvaliacao = (Button)v.findViewById(R.id.botao_avaliacao);
+
+        btnAvaliacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, new MainFragment());
+                ft.commit();
+
+                if (((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
+                    ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+                }
+
+                Toast toast = Toast.makeText(getContext(), "Avaliação salva com sucesso!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
 
         return v;
     }

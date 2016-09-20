@@ -1,19 +1,27 @@
 package org.brenomachado.cyberspeteria;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 
 /**
@@ -39,6 +47,16 @@ public class ProdutosFragment extends Fragment {
     private ArrayList<Produto> listaBebidas;
 
     private ArrayList<Produto> listaProdutos;
+
+    public ArrayList<String> listaMontagem;
+
+    public ArrayList<Produto> listaProdutosMontados;
+
+    public ArrayAdapter<String> montadosAdapter;
+
+    private ListView montadosView;
+
+    public View v;
 
     public ProdutosFragment() {
         // Required empty public constructor
@@ -92,13 +110,27 @@ public class ProdutosFragment extends Fragment {
             add(new Produto("Cafta", 6));
         }};
 
+        listaProdutosMontados = new ArrayList<Produto>() {{
+            add(new Produto("Alcatra", 6));
+            add(new Produto("Contra-File", 6));
+            add(new Produto("Picanha", 8));
+            add(new Produto("Filé-Mignon", 8));
+            add(new Produto("Medalhão de Porco", 6));
+            add(new Produto("Medalhão de Boi", 6));
+            add(new Produto("Medalhão de Frango", 6));
+            add(new Produto("Frango", 6));
+            add(new Produto("Cafta", 6));
+        }};
+
+        listaMontagem = new ArrayList<String>();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_produtos, container, false);
+        v = inflater.inflate(R.layout.fragment_produtos, container, false);
 
         ProdutoAdapter bebidasAdapter = new ProdutoAdapter(getActivity(),
                 R.layout.produto_checkbox,
@@ -117,7 +149,94 @@ public class ProdutosFragment extends Fragment {
 
         produtoView.setAdapter(produtoAdapter);
 
+        ProdutoAdapter produtoMontagemAdapter = new ProdutoAdapter(
+                getActivity(),
+                R.layout.produto_checkbox,
+                listaProdutosMontados);
+
+        ListView monteEspetoView = (ListView) v.findViewById(R.id.list_monte_seu_espeto);
+
+        monteEspetoView.setAdapter(produtoMontagemAdapter);
+
+        montadosView = (ListView) v.findViewById(R.id.list_montados);
+
+        montadosAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                R.layout.fragment_produtos,
+                R.id.list_montados,
+                listaMontagem);
+
+        montadosView.setAdapter(montadosAdapter);
+
+        Button gravarPedido = (Button) v.findViewById(R.id.gravar_pedido);
+
+        gravarPedido.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                builder.setMessage("Confirma a solicitação do pedido?")
+                        .setTitle("Confirmar Pedido");
+
+                builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.content_frame, new MainFragment());
+                        ft.commit();
+
+                        if (((AppCompatActivity)getActivity()).getSupportActionBar() != null) {
+                            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getString(R.string.app_name));
+                        }
+
+                        Toast toast = Toast.makeText(getContext(), "Pedido realizado!", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+                // 3. Get the AlertDialog from create()
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+
+            }
+        });
+
+        Button adicionarMontagem = (Button) v.findViewById(R.id.btn_adicionar);
+
+        adicionarMontagem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v2) {
+                String espeto = "";
+
+                for (int i = 0; i < ProdutosFragment.this.listaProdutosMontados.size(); i++) {
+                    if (ProdutosFragment.this.listaProdutosMontados.get(i).isSelecionado()) {
+                        if (!espeto.isEmpty())
+                            espeto += "/";
+                        espeto += ProdutosFragment.this.listaProdutosMontados.get(i).getNome();
+                    }
+                }
+
+                if (!espeto.isEmpty()) {
+                    ProdutosFragment.this.listaMontagem.add(espeto);
+                    //ProdutosFragment.this.atualiza();
+                }
+            }
+        });
+
         return v;
+    }
+
+    public void atualiza() {
+        montadosAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                R.layout.fragment_produtos,
+                R.id.list_montados,
+                listaMontagem);
+
+        montadosView.setAdapter(montadosAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

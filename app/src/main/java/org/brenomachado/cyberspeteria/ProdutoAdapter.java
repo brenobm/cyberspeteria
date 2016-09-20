@@ -48,11 +48,20 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
             holder.preco = (TextView) convertView.findViewById(R.id.valor);
             convertView.setTag(holder);
 
+            holder.nome.setOnClickListener( new View.OnClickListener() {
+                public void onClick(View v) {
+                    CheckBox cb = (CheckBox) v ;
+
+                    ((Produto)cb.getTag()).setSelecionado(cb.isChecked());
+                }
+            });
+
             holder.descricao.setOnClickListener( new View.OnClickListener() {
                 public void onClick(View v) {
                     TextView tv = (TextView) v ;
                     CheckBox cb = (CheckBox) tv.getTag();
                     cb.setChecked(!cb.isChecked());
+                    ((Produto)cb.getTag()).setSelecionado(cb.isChecked());
                 }
             });
 
@@ -61,6 +70,7 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
                     TextView tv = (TextView) v ;
                     CheckBox cb = (CheckBox) tv.getTag();
                     cb.setChecked(!cb.isChecked());
+                    ((Produto)cb.getTag()).setSelecionado(cb.isChecked());
                 }
             });
         }
